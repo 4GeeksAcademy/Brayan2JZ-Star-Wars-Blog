@@ -1,6 +1,12 @@
 const getState = ({ getStore, getActions, setStore }) => {
+	const API_URL="https://swapi.dev/api/"
 	return {
 		store: {
+			characters: [],
+			planets:[],
+			vehicles:[],
+			favorites:[],
+		
 			demo: [
 				{
 					title: "FIRST",
@@ -14,7 +20,48 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			]
 		},
+		
 		actions: {
+			getChar: () => {
+				fetch(API_URL+"people")
+				.then(resp => {
+					console.log("Response:", resp);
+					return resp.json();
+				})
+				.then(data =>{
+					console.log("Result:", data);
+					setStore({ characters: data.results});
+				})
+				.catch(error => console.log(error));
+			},
+			getPLan: () => {
+				fetch(API_URL+"planets")
+				.then(resp => resp.json())
+				.then(data => setStore({
+					planets: data.results
+				}))
+				.catch(error => console.log(error));
+			},
+			getVehicles: () => {
+				fetch(API_URL+"vehicles")
+				.then(resp => resp.json())
+				.then(data => setStore({
+					vehicles: data.results
+				}))
+				.catch(error => console.log(error));
+			},
+			addFavorites: (favItem) => {
+				setStore({
+					favorites: [...getStore().favorites, favItem]
+				})
+			},
+			deleteFavorites: (index) => {
+				const store = getStore();
+				const newFavorites = store.favorites.filter((_, i)=> i !== index);
+				setStore({
+					favorites: newFavorites
+				})
+			},
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");

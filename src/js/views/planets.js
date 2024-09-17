@@ -5,11 +5,11 @@ import { Context } from "../store/appContext";
 
 import "../../styles/demo.css";
 
-export const Demo = () => {
+export const PlanCards = () => {
 	return (
 		<div class="d-flex flex-row flex-nowrap overflow-auto">
 			<div className="card" style={{ width: "18rem" }}>
-				<img src="https://www.inspireuplift.com/resizer/?image=https://cdn.inspireuplift.com/uploads/images/seller_products/30041/1705718639_83-01.png&width=600&height=600&quality=90&format=auto&fit=pad"
+				<img src="https://img.freepik.com/premium-vector/silhouette-death-star-black-color-only_925376-222189.jpg?w=1380"
 					className="card-img-top" alt="..." />
 				<div className="card-body">
 				<h5 className="card-title">Card title</h5>
