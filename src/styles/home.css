@@ -1,3 +1,14 @@
 h2{
     color: rgba(220, 20, 60, 0.822);
+    margin-left: 10%;
 }
+.card-div{
+    max-width: 80%;
+    overflow-y: hidden !important;
+    /* margin-bottom: 2.5rem; */
+    margin: 1.5rem auto;
+}
+
+
+
+
