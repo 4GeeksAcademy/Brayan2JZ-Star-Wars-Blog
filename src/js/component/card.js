@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-
 import { Context } from "../store/appContext";
-
 import "../../styles/demo.css";
 
 export const Card = ({ item, index, category }) => {
@@ -21,8 +19,18 @@ export const Card = ({ item, index, category }) => {
 								"Crew: " + item.crew
 					}
 				</p>
+				<p className="card-text">
+					{
+						category == "characters" ? "Hair Color: " + item.hair_color :
+							category == "planets" ? "Terrain: " + item.terrain :
+								"Vehicle Class: " + item.vehicle_class
+					}
+				</p>
 				<div className="buttons-div mt-auto d-flex justify-content-between">
-					<button type="button" class="btn btn-outline-primary" disabled>Learn More!</button>
+					<Link to={`/details/${category}/${index}`}>
+						<button class="btn btn-outline-primary">Learn More!</button>
+					</Link>
+
 					<button type="button" class="btn btn-outline-warning" disabled>♥</button>
 				</div>
 			</div>
