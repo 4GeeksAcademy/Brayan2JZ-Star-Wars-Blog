@@ -8,7 +8,20 @@ h2{
     /* margin-bottom: 2.5rem; */
     margin: 1.5rem auto;
 }
-
-
-
-
+.detImg {
+    max-width: 45%;
+}
+.detPara{
+    padding: 30px;
+    font-size: x-large;
+}
+.fastFacts {
+    margin-top: 40px;
+    border-top: 2px solid red;
+    color: red;
+}
+.cFacts {
+    margin-top: 20px;
+    font-size: large;
+    font-weight: bold;
+}
