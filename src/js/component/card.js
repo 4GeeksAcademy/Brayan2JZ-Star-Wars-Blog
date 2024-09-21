@@ -31,7 +31,7 @@ export const Card = ({ item, index, category }) => {
 						<button class="btn btn-outline-primary">Learn More!</button>
 					</Link>
 
-					<button type="button" class="btn btn-outline-warning" disabled>♥</button>
+					<button type="button" class="btn btn-outline-warning" onClick={() => actions.addFavorites(item.name)}>fav</button>
 				</div>
 			</div>
 		</div>

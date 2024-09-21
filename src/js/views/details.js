@@ -43,7 +43,7 @@ export const Details = ({ category }) => {
                     }
                 </div>
                 <div className="cFacts col">
-                {
+                    {
                         category == "characters" ? "Birth Year: " + item.birth_year :
                             category == "planets" ? "Terrain: " + item.terrain :
                                 "Vehicle Class: " + item.vehicle_class
