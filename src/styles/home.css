@@ -1,17 +1,67 @@
+body {
+    background-image: url("https://i.pinimg.com/originals/fb/2d/19/fb2d193eeacd7483b652d86d155112d8.jpg");
+}
 h2{
-    color: rgba(220, 20, 60, 0.822);
+    color: rgb(255, 0, 0);
     margin-left: 10%;
+}
+.card{
+    background-color: rgb(59, 59, 59);
 }
 .card-div{
     max-width: 80%;
     overflow-y: hidden !important;
-    /* margin-bottom: 2.5rem; */
     margin: 1.5rem auto;
+    color: white
+}
+#scrollbar1::-webkit-scrollbar {
+    height: 10px;
+}
+
+#scrollbar1::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+#scrollbar1::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: rgb(0, 110, 255);
+}
+#scrollbar2::-webkit-scrollbar {
+    height: 10px;
+}
+
+#scrollbar2::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color:transparent;
+}
+
+#scrollbar2::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: rgb(5, 252, 5);
+}
+#scrollbar3::-webkit-scrollbar {
+    height: 10px;
+}
+
+#scrollbar3::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+#scrollbar3::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: red;
+}
+
+.container{
+    color: white;
 }
 .detImg {
     max-width: 45%;
 }
 .detPara{
+    background-color:rgb(59, 59, 59);
     padding: 30px;
     font-size: x-large;
 }

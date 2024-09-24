@@ -6,7 +6,7 @@ export const Navbar = ({ category }) => {
 		const { store, actions } = useContext(Context);
 	
 	return (
-		<nav className="navbar navbar-light bg-light ">
+		<nav className="navbar navbar-light bg-dark ">
 			<Link to="/">
 				<span className="navbar-brand mb-0 ms-5 h1">
 				<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">

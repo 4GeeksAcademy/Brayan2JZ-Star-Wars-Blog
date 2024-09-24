@@ -11,7 +11,7 @@ export const Home = () => {
 
 		<div className="body ms-2">
 			<h2>Characters</h2>
-			<div className="card-div d-flex flex-row align-items-center flex-nowrap overflow-scroll align-items-stretch">
+			<div className="card-div d-flex flex-row align-items-center flex-nowrap overflow-scroll align-items-stretch" id="scrollbar1">
 					{store.characters.map((item, index) => {
 						return (
 							<Card item={item} index={index} key={index} category="characters" />
@@ -20,7 +20,7 @@ export const Home = () => {
 			</div>
 
 			<h2>Planets</h2>
-			<div className="card-div d-flex flex-row align-items-center flex-nowrap overflow-scroll align-items-stretch">
+			<div className="card-div d-flex flex-row align-items-center flex-nowrap overflow-scroll align-items-stretch" id="scrollbar2">
 					{store.planets.map((item, index) => {
 						return (
 							<Card item={item} index={index} key={index} category="planets" />
@@ -29,7 +29,7 @@ export const Home = () => {
 			</div>
 
 			<h2>Vehicles</h2>
-			<div className="card-div d-flex flex-row align-items-center flex-nowrap overflow-scroll align-items-stretch">
+			<div className="card-div d-flex flex-row align-items-center flex-nowrap overflow-scroll align-items-stretch" id="scrollbar3">
 					{store.vehicles.map((item, index) => {
 						return (
 							<Card item={item} index={index} key={index} category="vehicles" />
