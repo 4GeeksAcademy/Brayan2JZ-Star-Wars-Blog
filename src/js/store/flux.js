@@ -1,59 +1,44 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	const API_URL="https://swapi.dev/api/"
+
+	const saveToLocalStorage = (key, data) => {
+		localStorage.setItem(key, JSON.stringify(data));
+	};
+
+	const getFromLocalStorage = (key) => {
+		const data = localStorage.getItem(key);
+		return data ? JSON.parse(data) : [];
+	};
+
+	const fetchDataIfNeeded = (category, apiEndPoint, localStorageKey) => {
+		const store = getStore();
+		if (Array.isArray(store[category]) && store[category].length === 0) {
+			fetch(API_URL + apiEndPoint)
+				.then(resp => resp.json())
+				.then(data => {
+					setStore({ [category]: data.results });
+					saveToLocalStorage(localStorageKey, data.results)
+				})
+				.catch(error => console.log(`Error Fetching ${category}: ` + error));
+		}
+	}
+
 	return {
 		store: {
-			characters: [],
-			planets:[],
-			vehicles:[],
-			favorites:[],
-		
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			characters: getFromLocalStorage("characters"),
+			planets:getFromLocalStorage("planets"),
+			vehicles:getFromLocalStorage("vehicles"),
+			favorites:getFromLocalStorage("favorites"),
 		},
 		
 		actions: {
-			getChar: () => {
-				fetch(API_URL+"people")
-				.then(resp => {
-					console.log("Response:", resp);
-					return resp.json();
-				})
-				.then(data =>{
-					console.log("Result:", data);
-					setStore({ characters: data.results});
-				})
-				.catch(error => console.log(error));
-			},
-			getPLan: () => {
-				fetch(API_URL+"planets")
-				.then(resp => resp.json())
-				.then(data => setStore({
-					planets: data.results
-				}))
-				.catch(error => console.log(error));
-			},
-			getVehicles: () => {
-				fetch(API_URL+"vehicles")
-				.then(resp => resp.json())
-				.then(data => setStore({
-					vehicles: data.results
-				}))
-				.catch(error => console.log(error));
-			},
+			getChar: () => fetchDataIfNeeded("characters", "people", "characters"), 
+			getPLan: () => fetchDataIfNeeded("planets", "planets", "planets"),
+			getVehicles: () => fetchDataIfNeeded("vehicles", "vehicles", "vehicles"),
 			addFavorites: (favItem) => {
-				setStore({
-					favorites: [...getStore().favorites, favItem]
-				})
+				const newFavorites = [...getStore().favorites, favItem]
+				setStore({favorites: newFavorites})
+				saveToLocalStorage("favorites", newFavorites);
 			},
 			deleteFavorites: (index) => {
 				const store = getStore();
@@ -61,30 +46,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({
 					favorites: newFavorites
 				})
+				saveToLocalStorage("favorites", newFavorites);
 			},
-			// Use getActions to call a function within a fuction
-			// exampleFunction: () => {
-			// 	getActions().changeColor(0, "green");
-			// },
-			// loadSomeData: () => {
-			// 	/**
-			// 		fetch().then().then(data => setStore({ "foo": data.bar }))
-			// 	*/
-			// },
-			// changeColor: (index, color) => {
-			// 	//get the store
-			// 	const store = getStore();
-
-			// 	//we have to loop the entire demo array to look for the respective index
-			// 	//and change its color
-			// 	const demo = store.demo.map((elm, i) => {
-			// 		if (i === index) elm.background = color;
-			// 		return elm;
-			// 	});
-
-			// 	//reset the global store
-			// 	setStore({ demo: demo });
-			// }
+			
 		}
 	};
 };
