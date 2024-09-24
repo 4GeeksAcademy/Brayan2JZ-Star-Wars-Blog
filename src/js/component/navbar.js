@@ -4,20 +4,6 @@ import { Context } from "../store/appContext";
 
 export const Navbar = ({ category }) => {
 		const { store, actions } = useContext(Context);
-		const params = useParams();
-
-		const character = store.characters.find((item, index) => index == params.id);
-		const planet = store.planets.find((item, index) => index == params.id);
-		const vehicle = store.vehicles.find((item, index) => index == params.id);
-
-		let item;
-    if (category === "characters") {
-        item = character;
-    } else if (category === "planets") {
-        item = planet;
-    } else if (category === "vehicles") {
-        item = vehicle;
-    }
 	
 	return (
 		<nav className="navbar navbar-light bg-light ">
@@ -30,12 +16,16 @@ export const Navbar = ({ category }) => {
 			</Link>
 			<div className="dropdown me-5 pe-5">
 				<button className="btn btn-primary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					Favorites
+					Favorites [{ store.favorites.length }]
 				</button>
-				<ul className="dropdown-menu" id="favorites-dropdown">
-					{store.favorites.length< 1 ? "No Favorites": store.favorites.map(
-						(fav) => <li><a className="dropdown-item" href="#">{fav}</a></li>
-						// make this toggle
+				<ul className="dropdown-menu text-center" id="favorites-dropdown">
+					{store.favorites.length< 1 ? "No Favorites": 
+						store.favorites.map((fav, index) => (
+							<li key={index} className="dropdown-item d-flex justify-content-between align-items-center">
+								<Link  to={"/details/" + fav.category + "/" + fav.index}>{fav.name}</Link>
+								<span onClick={() => actions.deleteFavorites(index)}><i class="fa-solid fa-x ms-2"></i></span>
+							</li>
+						) 
 					)}
 				</ul>
 			</div>

@@ -1,15 +1,48 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import "../../styles/demo.css";
+import sithJarJar from "../../img/sithbinks.png"
 
 export const Card = ({ item, index, category }) => {
 	const { store, actions } = useContext(Context);
+	const [imgErr, setImgErr] = useState(false);
+
+	
 	const GUIDE_URL = "https://starwars-visualguide.com/assets/img"
+	const getImageURL = () => {
+		if (imgErr) {
+			return sithJarJar;
+		} else{
+			return `${GUIDE_URL}/${category}/${index + 1}.jpg`
+		}
+	}
+	
+	const imageStyle = {
+		height: category === "vehicles" ? "190px" : 
+			category === "planets" ? "268px" :
+			"auto"
+	}
+
+	const isFavorite = store.favorites.some(fav => fav.name === item.name && fav.category === category)
+	const handleFavorites = () => {
+		const isFavorite = store.favorites.some(fav => fav.name === item.name && fav.category === category)
+		if (isFavorite) {
+			const indexToDelete = store.favorites.findIndex(fav => fav.name === item.name && fav.category === category)
+			if (indexToDelete !== -1) {
+				actions.deleteFavorites(indexToDelete)
+			}
+		} else {
+			actions.addFavorites({ name: item.name, index, category })
+		}
+	}
 	return (
 		<div className="card" style={{ minWidth: "18rem" }}>
-			<img src={`${GUIDE_URL}/${category}/${index + 1}.jpg`}
-				className="card-img-top" alt="..." />
+			<img
+				src={getImageURL()}
+				className="card-img-top" alt="..."
+				onError={() => setImgErr(true)}
+				style={imageStyle}
+			/>
 			<div className="card-body d-flex flex-column">
 				<h5 className="card-title">{item.name}</h5>
 				<p className="card-text">
@@ -28,10 +61,9 @@ export const Card = ({ item, index, category }) => {
 				</p>
 				<div className="buttons-div mt-auto d-flex justify-content-between">
 					<Link to={`/details/${category}/${index}`}>
-						<button class="btn btn-outline-primary">Learn More!</button>
+						<button className="btn btn-outline-primary">Learn More!</button>
 					</Link>
-
-					<button type="button" class="btn btn-outline-warning" onClick={() => actions.addFavorites(item.name)}>fav</button>
+					<i className={`fa-heart btn ${isFavorite ? "fa-solid" : "fa-regular"}`} style={{ color: "blueviolet", fontSize: "1.5rem" }} onClick={handleFavorites}></i>
 				</div>
 			</div>
 		</div>

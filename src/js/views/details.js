@@ -1,12 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import "../../styles/demo.css";
+import sithJarJar from "../../img/sithbinks.png"
 
 export const Details = ({ category }) => {
     const { store, actions } = useContext(Context);
     const params = useParams();
+    const[imgErr, setImgErr] = useState(false);
+
+    const getImageURL = () => {
+        if (imgErr) {
+            return sithJarJar;
+        } else {
+            return "https://starwars-visualguide.com/assets/img/" + category + "/" + (parseInt(params.id) + 1) + ".jpg"
+        }
+    }
 
     const character = store.characters.find((item, index) => index == params.id);
     const planet = store.planets.find((item, index) => index == params.id);
@@ -26,7 +34,7 @@ export const Details = ({ category }) => {
     return (
         <div className="container text-center">
             <div className="row align-items-start">
-                <img className="detImg" src={"https://starwars-visualguide.com/assets/img/" + category + "/" + (parseInt(params.id) + 1) + ".jpg"}></img>
+                <img className="detImg" src={getImageURL()} onError={() => setImgErr(true)}></img>
                 <div className="col">
                     <h1>
                         {item ? item.name : "Name not Found"}

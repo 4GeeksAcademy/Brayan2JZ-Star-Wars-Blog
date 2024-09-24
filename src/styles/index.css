@@ -1,3 +1,7 @@
 /* 
     General Styles
 */
+.fa-x:hover {
+    color:red;
+    cursor: pointer;
+}
